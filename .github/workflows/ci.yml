@@ -1,3 +1,9 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 2 optimizations:
+# - [HIGH] Add cargo dependency cache to "test" job
+# - [MEDIUM] Add concurrency group to "ci.yml"
+# Estimated savings: ~10 min/run
+#
 on:
   push:
     branches:
@@ -9,6 +15,10 @@ on:
       - '**.md'
   workflow_dispatch:
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 name: CI
 
 env:
